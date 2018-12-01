@@ -1,0 +1,10 @@
+[package]
+name = "stm32hal"
+description = "A HAL for all stm32 devices"
+version = "0.1.0"
+authors = ["OCTronics <octronics@riseup.net>"]
+keywords = ["stm32", "embedded", "embedded-hal"]
+categories = ["embedded"]
+edition = "2018"
+
+[dependencies]
