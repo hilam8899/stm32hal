@@ -1,10 +1,8 @@
 name: stm32f051
 info:
-  datasheet: https://somewhere.org/
-  reference: https://somewhereelse.org/
+  reference: dm00031936
   svd: stm32f0x1
-parts: # Page 11
-       # https://www.st.com/content/st_com/en/products/microcontrollers/stm32-32-bit-arm-cortex-mcus/stm32-mainstream-mcus/stm32f0-series/stm32f0x1/stm32f051r4.html#samplebuy-scroll
+parts:
   - { name: K4, ram: 8, packages: [ LQFP32 ], parts: [ T6 ] }
   - { name: K6, ram: 8, packages: [ LQFP32 ], parts: [ T6, T7 ] }
   - { name: K8, ram: 8, packages: [ LQFP32, UFQFPN32 ], parts: [ T6, T7, H7 ] }
@@ -39,9 +37,9 @@ peripherals:
           - PA11
           - PA12
           - name: PA13
-            initial_mode: Output<PullUp>
+            initial_mode: Input<PullUp>
           - name: PA14
-            initial_mode: Output<PullDown>
+            initial_mode: Input<PullDown>
           - PA15
       - name: GPIOB
         bus:
