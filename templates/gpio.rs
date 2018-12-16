@@ -81,6 +81,7 @@ use core::marker::PhantomData;
 
 // Include the PINs modes and states APIs.
 mod modes;
+mod states;
 
 {{~ #each banks }}
 

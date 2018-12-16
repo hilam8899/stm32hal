@@ -43,6 +43,7 @@ clean:
 		src/rcc/peripherals.rs \
 		src/gpio.rs \
 		src/gpio/states.rs \
+		src/gpio/modes.rs \
 	# Remove the files that can results from experimenting.
 	@rm -i -f \
 		src/*.rs \

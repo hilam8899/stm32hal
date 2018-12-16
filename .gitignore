@@ -5,3 +5,4 @@ src/rcc.rs
 src/rcc/peripherals.rs
 src/gpio.rs
 src/gpio/modes.rs
+src/gpio/states.rs
