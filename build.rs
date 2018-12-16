@@ -58,9 +58,17 @@ fn main() -> Result<(), Box<dyn Error>> {
             let info = &device.info;
             render!(info on $template to $output);
         };
+        // Render the device's `name` peripheral if it exists on a `template` file to an `output`
+        // file.
+        ( @peripheral $name:tt on $template:tt to $output:tt ) => {
+            if let Some(peripheral) = &device.peripherals.$name {
+                render!(peripheral on $template to $output);
+            }
+        };
     }
 
     // Generate the crate from template files.
+    render!(@peripheral rcc on "templates/rcc.rs" to "src/rcc.rs");
     render!(device on "templates/lib.rs" to "src/lib.rs");
 
     // Generate a device's memory linker script if we are asked to.

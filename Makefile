@@ -39,6 +39,7 @@ clean:
 	# Remove generated files.
 	@rm -f \
 		src/lib.rs \
+		src/rcc.rs \
 	# Remove the files that can results from experimenting.
 	@rm -i -f \
 		src/*.rs \

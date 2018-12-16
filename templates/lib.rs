@@ -12,3 +12,13 @@
 {{~ /with }}
 
 #![no_std]
+
+// Device's peripherals
+{{ #if peripherals.rcc ~}}
+pub mod rcc;
+{{~ /if }}
+
+mod api;
+
+// Re-export 
+pub use crate::api::Constrain;
