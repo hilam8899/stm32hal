@@ -17,8 +17,12 @@
 {{ #if peripherals.rcc ~}}
 pub mod rcc;
 {{~ /if }}
+{{ #if peripherals.gpio ~}}
+pub mod gpio;
+{{~ /if }}
 
 mod api;
 
 // Re-export 
 pub use crate::api::Constrain;
+pub use crate::api::ConstrainFrom;

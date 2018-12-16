@@ -40,8 +40,11 @@ clean:
 	@rm -f \
 		src/lib.rs \
 		src/rcc.rs \
+		src/rcc/peripherals.rs \
+		src/gpio.rs \
 	# Remove the files that can results from experimenting.
 	@rm -i -f \
 		src/*.rs \
+		src/rcc/*.rs \
 	# Clean `lib.rs`.
 	@echo "// This crate is generated at build time." > $(LIB_FILE)
