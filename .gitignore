@@ -2,3 +2,4 @@
 **/*.rs.bk
 Cargo.lock
 src/rcc.rs
+src/rcc/peripherals.rs

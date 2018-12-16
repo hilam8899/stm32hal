@@ -69,6 +69,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     // Generate the crate from template files.
     render!(@peripheral rcc on "templates/rcc.rs" to "src/rcc.rs");
+    render!(@peripheral rcc on "templates/rcc/peripherals.rs" to "src/rcc/peripherals.rs");
     render!(device on "templates/lib.rs" to "src/lib.rs");
 
     // Generate a device's memory linker script if we are asked to.

@@ -22,6 +22,9 @@
 
 use crate::api::Constrain;
 
+// Include the RCC peripherals API.
+mod peripherals;
+
 /// The RCC peripheral
 #[allow(non_camel_case_types)]
 pub struct RCC {
