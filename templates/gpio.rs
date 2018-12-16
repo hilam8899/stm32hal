@@ -3,12 +3,12 @@
 //! Supports:
 //!   - Constrain a gpio peripheral
 //!   - Access to individual pin
-//!
-//! Don't support (for now):
 //!   - Configuring a pin into :
 //!       - push-pull and open-drain output,
 //!       - ploating, pull-up and pull-down input,
 //!       - analog.
+//!
+//! Don't support (for now):
 //!   - Changing the pins' speeds.
 //!   - Freezing the pins' mode.
 //!   - Configuring a pin into alternate function.
@@ -31,6 +31,45 @@
 //! rcc.release();
 //! ```
 //!
+//! ### Pin modes
+//! ```
+//! # use stm32hal::{Constrain, ConstrainFrom};
+//! # use embedded_hal::digital::{InputPin, ToggleableOutputPin, OutputPin, StatefulOutputPin};
+//! # let mut rcc = stm32hal::rcc::RCC::take().unwrap();
+//! # let mut gpio = stm32hal::gpio::GPIOA::take_from(&mut rcc).unwrap();
+//! # let pin = gpio.pa1;
+//! // Put the pin into one of floating, pull-up or pull-down input mode, in which you can:
+//! let pin = pin.into_floating_input(&mut gpio.gpio);
+//! let pin = pin.into_pull_up_input(&mut gpio.gpio);
+//! let pin = pin.into_pull_down_input(&mut gpio.gpio);
+//!
+//! // Query the detected state of the pin.
+//! pin.is_high();
+//! pin.is_low();
+//!
+//! // Put the pin into one of push-pull or open-drain output mode, in which you can:
+//! let mut pin = pin.into_push_pull_output(&mut gpio.gpio);
+//! let mut pin = pin.into_open_drain_output(&mut gpio.gpio);
+//!
+//! // Query the state of the pin.
+//! pin.is_set_low();
+//! pin.is_set_high();
+//!
+//! // Change the state of the pin.
+//! pin.set_low();
+//! pin.set_high();
+//! pin.toggle();
+//!
+//! // Put the pin into analog mode.
+//! let pin = pin.into_analog(&mut gpio.gpio);
+//!
+//! // Put the pin into its default mode.
+//! let pin = pin.into_default(&mut gpio.gpio);
+//! # gpio.pa1 = pin;
+//! # gpio.release_to(&mut rcc);
+//! # rcc.release();
+//! ```
+//!
 
 pub use embedded_hal::digital::{
     toggleable::Default as ToggleablePin, InputPin, OutputPin, StatefulOutputPin,
@@ -39,6 +78,9 @@ use stm32ral::modify_reg;
 use crate::api::ConstrainFrom;
 use crate::rcc::RCC;
 use core::marker::PhantomData;
+
+// Include the PINs modes and states APIs.
+mod modes;
 
 {{~ #each banks }}
 
