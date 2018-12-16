@@ -6,5 +6,16 @@ authors = ["OCTronics <octronics@riseup.net>"]
 keywords = ["stm32", "embedded", "embedded-hal"]
 categories = ["embedded"]
 edition = "2018"
+readme = "README.md"
 
 [dependencies]
+stm32ral = "0.1.1"
+embedded-hal = { version = "0.2.2", features = ["unproven"] }
+
+[build-dependencies]
+stm32builder = "0.0.9"
+
+[features]
+default = ["rt"]
+rt = ["stm32ral/rt"]
+
