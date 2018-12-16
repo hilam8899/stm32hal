@@ -16,8 +16,9 @@ embedded-hal = { version = "0.2.2", features = ["unproven"] }
 stm32builder = "0.0.9"
 
 [features]
-default = ["rt"]
+default = ["rt", "memory_script"]
 rt = ["stm32ral/rt"]
+memory_script = []
 
 # WARNING: After this line all will be overriden when generating the crate
 # From devices/stm32f051.yaml

@@ -53,10 +53,26 @@ fn main() -> Result<(), Box<dyn Error>> {
             // be re-run and regenerate the output files even if nothing has been changed.
             println!("cargo:rerun-if-changed={}", $template);
         };
+        // Render the device's informations on a `template` file to an `output` file.
+        ( @info on $template:tt to $output:tt ) => {
+            let info = &device.info;
+            render!(info on $template to $output);
+        };
     }
 
     // Generate the crate from template files.
     render!(device on "templates/lib.rs" to "src/lib.rs");
+
+    // Generate a device's memory linker script if we are asked to.
+    // Done by default unless build with the cargo `--no-default-features` option or with the
+    // `default-feature = false` directive in the user 'Cargo.toml'.
+    if env::var("CARGO_FEATURE_MEMORY_SCRIPT").is_ok() {
+        let out_dir = env::var("OUT_DIR").unwrap();
+        let memory_file = format!("{}/memory.x", out_dir);
+        println!("cargo:rustc-link-search={}", out_dir);
+
+        render!(@info on "templates/memory.x" to memory_file);
+    }
 
     // Cargo re-run the build script (this file) in case it has been changed.
     // So no need to add `println!("cargo:rerun-if-changed=build.rs");` here.
