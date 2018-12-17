@@ -65,13 +65,13 @@ clean:
 		src/gpio/*.rs
 	# Clean `lib.rs`.
 	@echo "// This crate is generated at build time." > $(LIB_FILE)
-publish: clean
+release: clean
 	@echo "Version to publish (without 'v' prefix):"
 	@read version; \
 		sed -i -r -e "s/^version = \"(.*)\"$$/version = \"$$version\"/" Cargo.toml ; \
 		git add Cargo.toml ; \
 		git commit --message "Release v$$version" --edit -v ; \
 		git tag "v$$version"
-upload:
+publish:
 		cargo publish --no-verify
 		git push origin --tags master
