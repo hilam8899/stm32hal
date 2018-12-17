@@ -30,9 +30,23 @@ test:
 fmt:
 	cargo fmt --check
 
+# Add src/lib.rs safety checks.
+config-git:
+	@rm .git/hooks/pre-commit
+	@echo '#!/bin/sh' >> .git/hooks/pre-commit
+	@echo '' >> .git/hooks/pre-commit
+	@echo '# Ensure we do not commit modification to $(LIB_FILE)' >> .git/hooks/pre-commit
+	@echo 'if git diff --cached --name-only -- $(LIB_FILE) | grep -q $(LIB_FILE)' >> .git/hooks/pre-commit
+	@echo 'then' >> .git/hooks/pre-commit
+	@echo '	 echo "You are going to commit changed to src/lib.rs."' >> .git/hooks/pre-commit
+	@echo '	 echo "Please fixing it up or ignore me."' >> .git/hooks/pre-commit
+	@echo '	 exit 1' >> .git/hooks/pre-commit
+	@echo 'fi' >> .git/hooks/pre-commit
+	@chmod +x .git/hooks/pre-commit
+
 # We don't want our generated appear on status but we need it to be checked in
 # so assume it is unchanged.
-config-git:
+ignore-lib-file:
 	git update-index --assume-unchanged $(LIB_FILE)
 
 clean:
