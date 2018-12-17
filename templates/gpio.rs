@@ -127,7 +127,7 @@ impl ConstrainFrom for {{GPIO}} {
     /// Release the {{GPIO}} peripheral.
     fn release_to(self, rcc: &mut RCC) {
         rcc.disable_{{gpio}}();
-        stm32ral::gpio::GPIOA::release(self.gpio.0);
+        stm32ral::gpio::{{GPIO}}::release(self.gpio.0);
     }
 }
 
