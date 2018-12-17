@@ -1,6 +1,6 @@
 //! Build script for stm32hal crate
 
-use std::{env, error::Error, fs::File};
+use std::{env, error::Error, fs::File, fs::create_dir_all};
 use stm32builder::{Device, DeviceId};
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -66,6 +66,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             }
         };
     }
+
+    // Create the directory structures
+    create_dir_all("src/rcc")?;
+    create_dir_all("src/gpio")?;
 
     // Generate the crate from template files.
     render!(@peripheral rcc on "templates/rcc.rs" to "src/rcc.rs");
