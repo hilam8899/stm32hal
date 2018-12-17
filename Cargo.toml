@@ -11,6 +11,17 @@ license = "MIT/Apache-2.0"
 repository = "https://github.com/octronics/stm32hal"
 homepage = "https://github.com/octronics/stm32hal"
 
+# Include all the files to be distributed.
+include = [
+	"/templates/**/*",
+	"/devices/*",
+	"/src/api/*.rs",
+	"/src/lib.rs",
+	"/Cargo.toml",
+	"/build.rs",
+	"/README.md"
+]
+
 [dependencies]
 stm32ral = "0.1.1"
 embedded-hal = { version = "0.2.2", features = ["unproven"] }
